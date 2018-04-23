@@ -9,6 +9,8 @@ services:
         - MYSQL_ROOT_PASSWORD=linux
     domainname: openair4G.eur
     hostname: db
+    volumes:
+        - /etc/oai-docker/oai_db.sql:/docker-entrypoint-initdb.d/oai_db.sql
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     links:
@@ -29,6 +31,8 @@ services:
         ipv4_address: 192.168.142.10
     domainname: openair4G.eur
     hostname: hss
+    volumes:
+        - /etc/oai-docker:/usr/local/etc/oai
   mme: 
     build: mme
     links:
@@ -38,6 +42,8 @@ services:
         ipv4_address: 192.168.142.20
     domainname: openair4G.eur
     hostname: mme
+    volumes:
+        - /etc/oai-docker:/usr/local/etc/oai
   spgw: 
     build: spgw
     links:
@@ -52,6 +58,7 @@ services:
     hostname: spgw
     volumes:
      - /lib/modules:/lib/modules 
+     - /etc/oai-docker:/usr/local/etc/oai
 networks:
   epc:
     driver: bridge
