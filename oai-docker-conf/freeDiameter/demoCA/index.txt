@@ -1,1 +1,2 @@
 V	190424073420Z		01	unknown	/C=FR/ST=PACA/O=Eurecom/OU=CM/CN=mme2.openair4G.eur
+V	190424100759Z		02	unknown	/C=FR/ST=PACA/O=Eurecom/OU=CM/CN=hss.openair4G.eur
