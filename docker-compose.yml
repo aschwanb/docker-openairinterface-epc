@@ -51,8 +51,6 @@ services:
     networks:
       epc:
         ipv4_address: 10.0.5.103
-      sg:
-        ipv4_address: 172.16.0.2
     privileged: true
     domainname: openair4G.eur
     hostname: spgw
@@ -67,10 +65,3 @@ networks:
       config:
         - subnet: 10.0.5.0/24
           gateway: 10.0.5.1
-  sg:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.16.0.0/16
-          gateway: 172.16.0.1
