@@ -10,7 +10,7 @@ ARG APN='internet'
 
 #### CUSTOMIZE YOUR MME DETAILS
 ARG REALM='openair4G.eur'
-ARG MME='mme.openair4G.eur'
+ARG MME='mme2.openair4G.eur'
 
 ############################################ Docker build instructions
 
