@@ -28,7 +28,7 @@ services:
     networks:
       default:
       epc:
-        ipv4_address: 192.168.142.10
+        ipv4_address: 10.0.5.101
     domainname: openair4G.eur
     hostname: hss
     volumes:
@@ -39,7 +39,7 @@ services:
      - hss:hss.openair4G.eur
     networks:
       epc:
-        ipv4_address: 192.168.142.20
+        ipv4_address: 10.0.5.102
     domainname: openair4G.eur
     hostname: mme
     volumes:
@@ -50,7 +50,7 @@ services:
      - hss:hss.openair4G.eur
     networks:
       epc:
-        ipv4_address: 192.168.142.30
+        ipv4_address: 10.0.5.103
       sg:
         ipv4_address: 172.16.0.2
     privileged: true
@@ -65,8 +65,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 192.168.142.0/24
-          gateway: 192.168.142.1
+        - subnet: 10.0.5.0/24
+          gateway: 10.0.5.1
   sg:
     driver: bridge
     ipam:
