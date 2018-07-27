@@ -98,7 +98,7 @@ services:
       hostname: hss
       volumes:
        - ./hss/hss.conf:/usr/local/etc/oai/hss.conf:ro
-    banance_hss:
+    balance_hss:
         image: nginx
         networks:
           default:
@@ -115,10 +115,10 @@ services:
       hostname: mme
       volumes:
        - ./mme/mme.conf:/usr/local/etc/oai/mme.conf:ro
-    banance_mme:
+    balance_mme:
         image: nginx
         ports:
-            - 2123:80
+            - 2123
         networks:
           epc:
             ipv4_address: 192.168.142.20
@@ -135,10 +135,10 @@ services:
       volumes:
        - /lib/modules:/lib/modules
        - ./spgw/spgw.conf:/usr/local/etc/oai/spgw.conf:ro
-    banance_spgw:
+    balance_spgw:
         image: nginx
         ports:
-            - 2152:80
+            - 2123:80
         networks:
           epc:
             ipv4_address: 192.168.142.30
