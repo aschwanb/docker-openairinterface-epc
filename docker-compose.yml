@@ -106,6 +106,8 @@ services:
       hostname: hss
       volumes:
        - ./hss/hss.conf:/usr/local/etc/oai/hss.conf:ro
+      depends_on:
+          - "db"
 
     balance_hss:
         image: nginx
@@ -126,6 +128,8 @@ services:
       hostname: mme
       volumes:
        - ./mme/mme.conf:/usr/local/etc/oai/mme.conf:ro
+      depends_on:
+          - "hss"
 
     balance_mme:
         image: nginx
@@ -150,6 +154,8 @@ services:
       volumes:
        - /lib/modules:/lib/modules
        - ./spgw/spgw.conf:/usr/local/etc/oai/spgw.conf:ro
+      depends_on:
+          - "mme"
 
     balance_spgw:
         image: nginx
