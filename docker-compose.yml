@@ -61,16 +61,24 @@ services:
     ###############
     # EPC Network #
     ###############
+
+    ######
+    # DB #
+    ######
     db:
       build: db
-      ports:
-          - 3306:3306
       environment:
           - MYSQL_ROOT_PASSWORD=linux
       domainname: openair4G.eur
       hostname: db
       volumes:
        - ./db/oai_db.sql:/docker-entrypoint-initdb.d/oai_db.sql
+    balance_db:
+        image: nginx
+        ports:
+            - 3306:80
+        volumes:
+            - ./balance/balance_db.conf:/etc/nginx/nginx.conf
     phpmyadmin:
       image: phpmyadmin/phpmyadmin
       links:
@@ -81,43 +89,64 @@ services:
           - MYSQL_ROOT_PASSWORD=linux
           - MYSQL_USER=root
           - MYSQL_PASSWORD=linux
+    #######
+    # HSS #
+    #######
     hss:
       build: hss
-      links:
-       - db:db.openair4G.eur
-      networks:
-        default:
-        epc:
-          ipv4_address: 192.168.142.10
       domainname: openair4G.eur
       hostname: hss
       volumes:
        - ./hss/hss.conf:/usr/local/etc/oai/hss.conf:ro
+    balance_hss:
+        image: nginx
+        networks:
+          default:
+          epc:
+            ipv4_address: 192.168.142.10
+        volumes:
+            - ./balance/balance_hss.conf:/etc/nginx/nginx.conf
+    #######
+    # MME #
+    #######
     mme:
       build: mme
-      links:
-       - hss:hss.openair4G.eur
-      networks:
-        epc:
-          ipv4_address: 192.168.142.20
       domainname: openair4G.eur
       hostname: mme
       volumes:
        - ./mme/mme.conf:/usr/local/etc/oai/mme.conf:ro
+    balance_mme:
+        image: nginx
+        ports:
+            - 2123
+        networks:
+          epc:
+            ipv4_address: 192.168.142.20
+        volumes:
+            - ./balance/balance_mme.conf:/etc/nginx/nginx.conf
+    ########
+    # SPGW #
+    ########
     spgw:
       build: spgw
-      links:
-       - hss:hss.openair4G.eur
-      networks:
-        epc:
-          ipv4_address: 192.168.142.30
       privileged: true
       domainname: openair4G.eur
       hostname: spgw
       volumes:
        - /lib/modules:/lib/modules
        - ./spgw/spgw.conf:/usr/local/etc/oai/spgw.conf:ro
-
+    balance_spgw:
+        image: nginx
+        ports:
+            - 2123:80
+        networks:
+          epc:
+            ipv4_address: 192.168.142.30
+        volumes:
+            - ./balance/balance_spgw.conf:/etc/nginx/nginx.conf
+############
+# Networks #
+############
 networks:
   monitoring:
     driver: bridge
@@ -128,10 +157,3 @@ networks:
       config:
         - subnet: 192.168.142.0/24
           gateway: 192.168.142.1
-  sg:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.16.0.0/16
-          gateway: 172.16.0.1
