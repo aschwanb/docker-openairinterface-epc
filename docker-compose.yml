@@ -79,13 +79,11 @@ services:
         networks:
             default:
         ports:
-            - 3306:80
+            - 3306:3306
         volumes:
             - ./balance/balance_db.conf:/etc/nginx/nginx.conf
         depends_on:
             - "db"
-        domainname: openair4G.eur
-        hostname: db
 
     phpmyadmin:
       image: phpmyadmin/phpmyadmin
