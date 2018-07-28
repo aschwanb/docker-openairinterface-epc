@@ -132,7 +132,7 @@ services:
     balance_mme:
         image: nginx
         ports:
-            - 2123
+            - 2123:2123
         networks:
           default:
           epc:
@@ -158,7 +158,7 @@ services:
     balance_spgw:
         image: nginx
         ports:
-            - 2123:80
+            - 80
         networks:
           default:
           epc:
