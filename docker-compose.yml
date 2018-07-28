@@ -71,10 +71,9 @@ services:
           - MYSQL_ROOT_PASSWORD=linux
       networks:
         default:
-      domainname: openair4G.eur
-      hostname: db
       volumes:
        - ./db/oai_db.sql:/docker-entrypoint-initdb.d/oai_db.sql
+
     balance_db:
         image: nginx
         networks:
@@ -85,6 +84,9 @@ services:
             - ./balance/balance_db.conf:/etc/nginx/nginx.conf
         depends_on:
             - "db"
+        domainname: openair4G.eur
+        hostname: db
+
     phpmyadmin:
       image: phpmyadmin/phpmyadmin
       links:
@@ -104,6 +106,7 @@ services:
       hostname: hss
       volumes:
        - ./hss/hss.conf:/usr/local/etc/oai/hss.conf:ro
+
     balance_hss:
         image: nginx
         networks:
@@ -123,6 +126,7 @@ services:
       hostname: mme
       volumes:
        - ./mme/mme.conf:/usr/local/etc/oai/mme.conf:ro
+
     balance_mme:
         image: nginx
         ports:
@@ -146,6 +150,7 @@ services:
       volumes:
        - /lib/modules:/lib/modules
        - ./spgw/spgw.conf:/usr/local/etc/oai/spgw.conf:ro
+
     balance_spgw:
         image: nginx
         ports:
@@ -158,6 +163,7 @@ services:
             - ./balance/balance_spgw.conf:/etc/nginx/nginx.conf
         depends_on:
             - "spgw"
+
 ############
 # Networks #
 ############
