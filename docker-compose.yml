@@ -78,6 +78,7 @@ services:
         image: nginx
         networks:
             default:
+            epc:
         ports:
             - 3306:3306
         volumes:
