@@ -111,14 +111,14 @@ services:
       domainname: openair4G.eur
       hostname: hss
 
-    balance_hss:
-        image: nginx
-        # ports:
-            # - 3868:3868
-        volumes:
-            - ./balance/balance_hss.conf:/etc/nginx/nginx.conf
-        depends_on:
-            - "hss"
+#    balance_hss:
+#        image: nginx
+#        # ports:
+#            # - 3868:3868
+#        volumes:
+#            - ./balance/balance_hss.conf:/etc/nginx/nginx.conf
+#        depends_on:
+#            - "hss"
     #######
     # MME #
     #######
@@ -135,14 +135,14 @@ services:
       domainname: openair4G.eur
       hostname: mme
 
-    balance_mme:
-        image: nginx
-        # ports:
-            # - 2123:2123
-        volumes:
-            - ./balance/balance_mme.conf:/etc/nginx/nginx.conf
-        depends_on:
-            - "mme"
+#    balance_mme:
+#        image: nginx
+#        # ports:
+#            # - 2123:2123
+#        volumes:
+#            - ./balance/balance_mme.conf:/etc/nginx/nginx.conf
+#        depends_on:
+#            - "mme"
     ########
     # SPGW #
     ########
@@ -163,14 +163,14 @@ services:
       domainname: openair4G.eur
       hostname: spgw
 
-    balance_spgw:
-        image: nginx
-        volumes:
-            - ./balance/balance_spgw.conf:/etc/nginx/nginx.conf
-        depends_on:
-            - "spgw"
-
-############
+#    balance_spgw:
+#        image: nginx
+#        volumes:
+#            - ./balance/balance_spgw.conf:/etc/nginx/nginx.conf
+#        depends_on:
+#            - "spgw"
+#
+#############
 # Networks #
 ############
 networks:
