@@ -110,11 +110,11 @@ services:
           ipv4_address: 192.168.142.10
       domainname: openair4G.eur
       hostname: hss
+      ports:
+        - 3868:3868
 
     balance_hss:
         image: nginx
-        # ports:
-            # - 3868:3868
         volumes:
             - ./balance/balance_hss.conf:/etc/nginx/nginx.conf
         depends_on:
@@ -134,11 +134,11 @@ services:
           ipv4_address: 192.168.142.20
       domainname: openair4G.eur
       hostname: mme
+      ports:
+        - 2123:2123
 
     balance_mme:
         image: nginx
-        # ports:
-            # - 2123:2123
         volumes:
             - ./balance/balance_mme.conf:/etc/nginx/nginx.conf
         depends_on:
