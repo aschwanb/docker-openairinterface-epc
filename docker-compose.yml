@@ -104,19 +104,19 @@ services:
        - ./hss/hss.conf:/usr/local/etc/oai/hss.conf:ro
       depends_on:
           - "db"
+      networks:
+        default:
+        epc:
+          ipv4_address: 192.168.142.10
+      domainname: openair4G.eur
+      hostname: hss
 
     balance_hss:
         image: nginx
-        ports:
-            - 3868:3868
-        networks:
-          default:
-          epc:
-            ipv4_address: 192.168.142.10
+        # ports:
+            # - 3868:3868
         volumes:
             - ./balance/balance_hss.conf:/etc/nginx/nginx.conf
-        domainname: openair4G.eur
-        hostname: hss
         depends_on:
             - "hss"
     #######
@@ -128,19 +128,19 @@ services:
        - ./mme/mme.conf:/usr/local/etc/oai/mme.conf:ro
       depends_on:
           - "hss"
+      networks:
+        default:
+        epc:
+          ipv4_address: 192.168.142.20
+      domainname: openair4G.eur
+      hostname: mme
 
     balance_mme:
         image: nginx
-        ports:
-            - 2123:2123
-        networks:
-          default:
-          epc:
-            ipv4_address: 192.168.142.20
+        # ports:
+            # - 2123:2123
         volumes:
             - ./balance/balance_mme.conf:/etc/nginx/nginx.conf
-        domainname: openair4G.eur
-        hostname: mme
         depends_on:
             - "mme"
     ########
@@ -154,17 +154,17 @@ services:
        - ./spgw/spgw.conf:/usr/local/etc/oai/spgw.conf:ro
       depends_on:
           - "mme"
+      ports:
+          - 2152:2152
+      networks:
+        default:
+        epc:
+          ipv4_address: 192.168.142.30
+      domainname: openair4G.eur
+      hostname: spgw
 
     balance_spgw:
         image: nginx
-        ports:
-            - 2152:2152
-        networks:
-          default:
-          epc:
-            ipv4_address: 192.168.142.30
-        domainname: openair4G.eur
-        hostname: spgw
         volumes:
             - ./balance/balance_spgw.conf:/etc/nginx/nginx.conf
         depends_on:
