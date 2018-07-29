@@ -4,60 +4,60 @@ services:
     ######################
     # Monitring Services #
     ######################
-    cadvisor:
-      image: google/cadvisor:latest
-      container_name: oai_cadvisor
-      ports:
-          - 8080:8080
-      volumes:
-          - /:/rootfs:ro
-          - /var/run:/var/run:rw
-          - /sys:/sys:ro
-          - /var/lib/docker/:/var/lib/docker:ro
-          - /dev/disk/:/dev/disk:ro
-      networks:
-          - monitoring
-    prometheus:
-      image: prom/prometheus
-      container_name: oai_prometheus
-      ports:
-          - 9090:9090
-      volumes:
-          - ./prometheus.yml:/etc/prometheus/prometheus.yml
-      networks:
-          - monitoring
-    grafana:
-      image: grafana/grafana
-      container_name: oai_grafana
-      ports:
-          - 3000:3000
-      networks:
-          - monitoring
-
-    #####################
-    # Traffic Generator #
-    #####################
-    iperf3_server:
-      image: networkstatic/iperf3
-      container_name: oai_iperf3_server
-      ports:
-          - 5201:5201
-      command: ["-s"]
-      networks:
-        default:
-        epc:
-          ipv4_address: 192.168.142.40
-    iperf3_client:
-      depends_on:
-          - iperf3_server
-      image: networkstatic/iperf3
-      container_name: oai_iperf3_client
-      entrypoint: bash -x -c "while true;do /usr/bin/iperf3 -c iperf3_server; sleep 30;done"
-      volumes:
-       - /tmp/iperf_status:/tmp/iperf_status
-      networks:
-        epc:
-
+#    cadvisor:
+#      image: google/cadvisor:latest
+#      container_name: oai_cadvisor
+#      ports:
+#          - 8080:8080
+#      volumes:
+#          - /:/rootfs:ro
+#          - /var/run:/var/run:rw
+#          - /sys:/sys:ro
+#          - /var/lib/docker/:/var/lib/docker:ro
+#          - /dev/disk/:/dev/disk:ro
+#      networks:
+#          - monitoring
+#    prometheus:
+#      image: prom/prometheus
+#      container_name: oai_prometheus
+#      ports:
+#          - 9090:9090
+#      volumes:
+#          - ./prometheus.yml:/etc/prometheus/prometheus.yml
+#      networks:
+#          - monitoring
+#    grafana:
+#      image: grafana/grafana
+#      container_name: oai_grafana
+#      ports:
+#          - 3000:3000
+#      networks:
+#          - monitoring
+#
+#    #####################
+#    # Traffic Generator #
+#    #####################
+#    iperf3_server:
+#      image: networkstatic/iperf3
+#      container_name: oai_iperf3_server
+#      ports:
+#          - 5201:5201
+#      command: ["-s"]
+#      networks:
+#        default:
+#        epc:
+#          ipv4_address: 192.168.142.40
+#    iperf3_client:
+#      depends_on:
+#          - iperf3_server
+#      image: networkstatic/iperf3
+#      container_name: oai_iperf3_client
+#      entrypoint: bash -x -c "while true;do /usr/bin/iperf3 -c iperf3_server; sleep 30;done"
+#      volumes:
+#       - /tmp/iperf_status:/tmp/iperf_status
+#      networks:
+#        epc:
+#
     ###############
     # EPC Network #
     ###############
