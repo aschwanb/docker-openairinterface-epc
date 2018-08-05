@@ -98,12 +98,21 @@ services:
     #######
     # HSS #
     #######
-    hss:
+    backend_hss:
       build: hss
       volumes:
        - ./hss/hss.conf:/usr/local/etc/oai/hss.conf:ro
       depends_on:
           - "balance_db"
+
+    hss:
+      image: nginx
+      ports:
+          - 3868:3868
+      volumes:
+          - ./balance/balance_hss.conf:/etc/nginx/nginx.conf
+      depends_on:
+          - "backend_hss"
       networks:
         default:
         epc:
@@ -111,14 +120,6 @@ services:
       domainname: openair4G.eur
       hostname: hss
 
-#    balance_hss:
-#        image: nginx
-#        # ports:
-#            # - 3868:3868
-#        volumes:
-#            - ./balance/balance_hss.conf:/etc/nginx/nginx.conf
-#        depends_on:
-#            - "hss"
     #######
     # MME #
     #######
