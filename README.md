@@ -16,7 +16,9 @@ Edit the various Dockerfile or override the corresponding arg variable to match 
 
 ## Test oaisim
 ```
-sudo -E ./run_enb_ue_virt_s1 --config-file ~/docker-openairinterface-epc/oaisim/enb.band7.generic.oaisim.local_mme.conf
+source oaienv
+~/openairinterface5g/cmake_targets/build_oai -c --UE --oaisim
+sudo -E ~/openairinterface5g/cmake_targets/tools/run_enb_ue_virt_s1 --config-file ~/docker-openairinterface-epc/oaisim/enb.band7.generic.oaisim.local_mme.conf
 ping google.com -I oip1 
 ```
 
