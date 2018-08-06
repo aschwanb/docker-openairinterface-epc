@@ -161,6 +161,9 @@ services:
           ipv4_address: 192.168.142.30
       domainname: openair4G.eur
       hostname: spgw
+      ports:
+          - 2152
+          - 2123
 
 #    spgw:
 #      image: nginx
@@ -168,9 +171,6 @@ services:
 #           - ./balance/balance_spgw.conf:/etc/nginx/nginx.conf
 #      depends_on:
 #           - "backend_spgw"
-#      ports:
-#          - 2152:2152
-#          - 2123:2123
 
 #############
 # Networks #
