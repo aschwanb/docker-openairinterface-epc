@@ -108,7 +108,7 @@ services:
     hss:
       image: nginx
       ports:
-          - 3868:3868
+          - 3868
       volumes:
           - ./balance/balance_hss.conf:/etc/nginx/nginx.conf
       depends_on:
@@ -155,8 +155,6 @@ services:
        - ./spgw/spgw.conf:/usr/local/etc/oai/spgw.conf:ro
       depends_on:
           - "mme"
-      ports:
-          - 2152:2152
       networks:
         default:
         epc:
@@ -164,13 +162,16 @@ services:
       domainname: openair4G.eur
       hostname: spgw
 
-#    balance_spgw:
-#        image: nginx
-#        volumes:
-#            - ./balance/balance_spgw.conf:/etc/nginx/nginx.conf
-#        depends_on:
-#            - "spgw"
-#
+#    spgw:
+#      image: nginx
+#      volumes:
+#           - ./balance/balance_spgw.conf:/etc/nginx/nginx.conf
+#      depends_on:
+#           - "backend_spgw"
+#      ports:
+#          - 2152:2152
+#          - 2123:2123
+
 #############
 # Networks #
 ############
