@@ -14,7 +14,11 @@ RUN update-ca-certificates
 
 # cloning directory
 WORKDIR /root
-RUN git clone https://gitlab.eurecom.fr/oai/openair-cn.git 
+RUN mkdir .ssh
+RUN ssh-keyscan github.com >> .ssh/known_hosts
+COPY id_rsa .ssh/id_rsa
+COPY id_rsa.pub .ssh/id_rsa.pub
+RUN git clone git@github.com:aschwanb/openair-cn.git
 
 WORKDIR /root/openair-cn
 RUN git checkout develop
