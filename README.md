@@ -17,9 +17,15 @@ Edit the various Dockerfile or override the corresponding arg variable to match 
 ## Test oaisim
 ```
 source oaienv
+~/openairinterface5g/cmake_targets/build_oai -I
 ~/openairinterface5g/cmake_targets/build_oai -c --UE --oaisim
-sudo -E ~/openairinterface5g/cmake_targets/tools/run_enb_ue_virt_s1 --config-file ~/docker-openairinterface-epc/oaisim/enb.band7.generic.oaisim.local_mme.conf
+# ./build_oai -I --UE --oaisim -c -C
+sudo -E ~/openairinterface5g/cmake_targets/tools/run_enb_ue_virt_s1 --config-file ~/docker-openairinterface-epc/enb.band7.generic.oaisim.local_mme.conf
 ping google.com -I oip1 
 ```
 
+### Test lte-uesoftmodem (branch develop)
+```
+# ./build_oai -I -t ETHERNET -w --UE -c -C
+```
 
